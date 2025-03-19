@@ -20,8 +20,8 @@ namespace WikiIntegration
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.Component"));
         private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
 
+        public override bool CanBeDisabled => true;
         public override int Priority => HarmonyLib.Priority.HigherThanNormal;
-
         private static LocaleString ComponentLocale => _componentLocale.Value;
         private static LocaleString ProtoFluxLocale => _protoFluxLocale.Value;
 
@@ -79,6 +79,12 @@ namespace WikiIntegration
 
         private static void Postfix(ProtoFluxNodeVisual __instance, ProtoFluxNode node)
         {
+            if (!Enabled)
+                return;
+
+            if (node.SupressHeaderAndFooter && node.NodeName.Contains("Relay", StringComparison.OrdinalIgnoreCase))
+                return;
+
             var ui = new UIBuilder(__instance.LocalUIBuilder.Canvas);
 
             var buttonArea = ui.Panel();
