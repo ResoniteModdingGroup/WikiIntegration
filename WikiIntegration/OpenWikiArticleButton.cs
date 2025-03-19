@@ -13,6 +13,9 @@ using System.Text;
 
 namespace WikiIntegration
 {
+    /// <summary>
+    /// This monkey must not be disabled to generate wiki buttons for anyone else in the session.
+    /// </summary>
     [HarmonyPatchCategory(nameof(OpenWikiArticleButton))]
     [HarmonyPatch(typeof(ProtoFluxNodeVisual), nameof(ProtoFluxNodeVisual.GenerateVisual))]
     internal sealed class OpenWikiArticleButton : ConfiguredResoniteInspectorMonkey<OpenWikiArticleButton, WikiButtonConfig, BuildInspectorHeaderEvent, Worker>
@@ -20,7 +23,6 @@ namespace WikiIntegration
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.Component"));
         private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
 
-        public override bool CanBeDisabled => true;
         public override int Priority => HarmonyLib.Priority.HigherThanNormal;
         private static LocaleString ComponentLocale => _componentLocale.Value;
         private static LocaleString ProtoFluxLocale => _protoFluxLocale.Value;
@@ -37,6 +39,8 @@ namespace WikiIntegration
                 .WithTooltip(eventData.Worker is ProtoFluxNode ? ProtoFluxLocale : ComponentLocale);
 
             AddHyperlink(button.Slot, eventData.Worker);
+
+            ConfigSection.Components.DriveFromVariable(button.Slot.ActiveSelf_Field);
             ConfigSection.ComponentOffset.DriveFromVariable(button.Slot._orderOffset);
 
             ui.PopStyle();
@@ -79,9 +83,6 @@ namespace WikiIntegration
 
         private static void Postfix(ProtoFluxNodeVisual __instance, ProtoFluxNode node)
         {
-            if (!Enabled)
-                return;
-
             if (node.SupressHeaderAndFooter && node.NodeName.Contains("Relay", StringComparison.OrdinalIgnoreCase))
                 return;
 
@@ -98,6 +99,8 @@ namespace WikiIntegration
             button.Slot.AttachComponent<Button>().WithTooltip(ProtoFluxLocale);
 
             AddHyperlink(button.Slot, node);
+
+            ConfigSection.ProtoFlux.DriveFromVariable(button.Slot.ActiveSelf_Field);
         }
     }
 }
