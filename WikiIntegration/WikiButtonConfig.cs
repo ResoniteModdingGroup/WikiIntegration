@@ -1,5 +1,6 @@
 ﻿using MonkeyLoader.Configuration;
 using MonkeyLoader.Resonite.Configuration;
+using MonkeyLoader.Resonite.UI.Inspectors;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,8 +14,8 @@ namespace WikiIntegration
 
         private readonly DefiningConfigKey<int> _componentOffset = new("ComponentOffset", "The Order Offset of the Wiki button on Inspector Headers. Higher is further right.", () => 2)
         {
-            new ConfigKeyRange<int>(0, 16), // Replace with DefaultInspectorHeaderConfig.OffsetRange
-            new ConfigKeySessionShare<int, long>(i => i, l => (int)l, 2)
+            DefaultInspectorHeaderConfig.OffsetRange,
+            DefaultInspectorHeaderConfig.MakeOffsetRangeShare(2)
         };
 
         /// <summary>
