@@ -11,7 +11,7 @@ namespace WikiIntegration
         private static readonly DefiningConfigKey<bool> _components = new("Components", "Whether to add the Wiki button to Components in Worker Inspectors.", () => true);
         private static readonly DefiningConfigKey<bool> _protoFlux = new("ProtoFlux", "Whether to add the Wiki button to ProtoFlux nodes.", () => true);
 
-        private readonly DefiningConfigKey<int> _componentOffset = new("ComponentOffset", "The Order Offset of the Wiki button on Inspector Headers. Range: 0-16 - Higher is further right.", () => 2)
+        private readonly DefiningConfigKey<int> _componentOffset = new("ComponentOffset", "The Order Offset of the Wiki button on Inspector Headers. Higher is further right.", () => 2)
         {
             new ConfigKeyRange<int>(0, 16), // Replace with DefaultInspectorHeaderConfig.OffsetRange
             new ConfigKeySessionShare<int, long>(i => i, l => (int)l, 2)

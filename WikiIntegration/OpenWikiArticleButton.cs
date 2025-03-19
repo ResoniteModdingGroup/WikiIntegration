@@ -5,6 +5,7 @@ using FrooxEngine.UIX;
 using HarmonyLib;
 using MonkeyLoader.Resonite;
 using MonkeyLoader.Resonite.UI;
+using MonkeyLoader.Resonite.UI.Inspectors;
 using ProtoFlux.Core;
 using System;
 using System.Collections.Generic;
