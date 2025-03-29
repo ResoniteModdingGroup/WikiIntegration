@@ -9,12 +9,12 @@ namespace WikiIntegration
 {
     internal sealed class WikiButtonConfig : ConfigSection
     {
-        private static readonly DefiningConfigKey<bool> _components = new("Components", "Whether to add the Wiki button to Components in Worker Inspectors.", () => true)
+        private static readonly DefiningConfigKey<bool> _components = new("Components", "Whether to show the Wiki button on Components in Worker Inspectors.", () => true)
         {
             new ConfigKeySessionShare<bool>(true)
         };
 
-        private static readonly DefiningConfigKey<bool> _protoFlux = new("ProtoFlux", "Whether to add the Wiki button to ProtoFlux nodes.", () => true)
+        private static readonly DefiningConfigKey<bool> _protoFlux = new("ProtoFlux", "Whether to show the Wiki button on ProtoFlux nodes.", () => true)
         {
             new ConfigKeySessionShare<bool>(true)
         };
@@ -33,6 +33,7 @@ namespace WikiIntegration
         public ConfigKeySessionShare<bool> Components => _components.Components.Get<ConfigKeySessionShare<bool>>();
 
         public override string Description => "Contains settings for the Resonite Wiki buttons on components and ProtoFlux nodes.";
+
         public override string Id => "Buttons";
 
         public ConfigKeySessionShare<bool> ProtoFlux => _protoFlux.Components.Get<ConfigKeySessionShare<bool>>();
