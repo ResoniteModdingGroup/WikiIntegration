@@ -122,7 +122,7 @@ namespace WikiIntegration
 
         private static void Postfix(ProtoFluxNodeVisual __instance, ProtoFluxNode node)
         {
-            if (node.SupressHeaderAndFooter && node.NodeName.Contains("Relay", StringComparison.OrdinalIgnoreCase))
+            if (!Engine.IsAprilFools && node.SupressHeaderAndFooter && node.NodeName.Contains("Relay", StringComparison.OrdinalIgnoreCase))
                 return;
 
             var ui = new UIBuilder(__instance.LocalUIBuilder.Canvas);
