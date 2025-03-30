@@ -17,7 +17,10 @@ namespace WikiIntegration
 
         private static readonly Dictionary<string, ConfigKeySessionShare<bool>> _sessionSharesByCategory = new();
 
+        /// <inheritdoc/>
         public override string Description => "Contains settings for the Resonite Wiki buttons on specific categories of ProtoFlux nodes.";
+
+        /// <inheritdoc/>
         public override string Id => "ProtoFluxCategories";
 
         public ConfigKeySessionShare<bool>? this[string category]

@@ -7,9 +7,14 @@
 
     "WikiIntegration.WikiHyperlink.Component": "Öffnet den Resonite Wiki Artikel über diese Komponente.",
     "WikiIntegration.WikiHyperlink.ProtoFlux": "Öffnet den Resonite Wiki Artikel über diese ProtoFlux Node.",
+    "WikiIntegration.WikiHyperlink.ComponentCategory": "Öffnet den Resonite Wiki Artikel über diese Kategorie von Komponentes.",
+    "WikiIntegration.WikiHyperlink.ProtoFluxCategory": "Öffnet den Resonite Wiki Artikel über diese Kategorie von ProtoFlux Nodes.",
 
-    "WikiIntegration.OpenWikiArticleButton.Name": "Öffne Wiki Artikel Link",
+    "WikiIntegration.OpenWikiArticleButton.Name": "Öffne-Wiki-Artikel Link",
     "WikiIntegration.OpenWikiArticleButton.Description": "Fügt den Resonite Wiki Artikel Link zu Komponenten in Worker Inspektoren und ProtoFlux Nodes hinzu.",
+
+    "WikiIntegration.CategoryWikiArticleButtons.Name": "Öffne-Wiki-Artikel Link für Kategorien",
+    "WikiIntegration.CategoryWikiArticleButtons.Description": "Fügt den Resonite Wiki Artikel Link zu Kategorien in Komponenten-Selektoren und ProtoFlux Nodebrowsern hinzu.",
 
     "WikiIntegration.Config.Buttons.Name": "Links",
     "WikiIntegration.Config.Buttons.ProtoFlux.Description": "Ob der Resonite Wiki Artikel Link auf ProtoFlux Nodes angezeigt werden soll.",

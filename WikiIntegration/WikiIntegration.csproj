@@ -4,29 +4,12 @@
     <AssemblyTitle>WikiIntegration</AssemblyTitle>
     <AssemblyFileName>$(AssemblyTitle).dll</AssemblyFileName>
     <RootNamespace>WikiIntegration</RootNamespace>
+    <PackageId>WikiIntegration.Main</PackageId>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>WikiIntegration</PackageId>
-    <Title>Wiki Integration</Title>
-    <Authors>Banane9</Authors>
-    <Version>0.4.0-beta</Version>
-    <Description>This MonkeyLoader mod for Resonite that adds links to the Wiki to Components in Worker Inspectors, and ProtoFlux nodes.</Description>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/ResoniteModdingGroup/WikiIntegration</PackageProjectUrl>
-    <PackageTags>mod; mods; monkeyloader; resonite; component; components; inspector; protoflux; node; nodes; wiki; help; link</PackageTags>
-  </PropertyGroup>
-  
-  <Target Name="CopyPackage" AfterTargets="Pack">
-    <Copy Condition="'$(CopyToLibraries)'=='true'" SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFiles="$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg" />
-    <Message Condition="'$(CopyToLibraries)'=='true'" Text="Copied '$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg' to '$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg'" Importance="high" />
-  </Target>
   
   <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="" />
-    <None Include="Locale\*" Pack="true" PackagePath="content/Locale/" />
+    <None Include="..\README.md" />
+    <None Include="Locale\*" />
   </ItemGroup>
 
   <ItemGroup>

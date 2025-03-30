@@ -7,9 +7,14 @@
 
     "WikiIntegration.WikiHyperlink.Component": "Opens the Resonite Wiki article about this Component.",
     "WikiIntegration.WikiHyperlink.ProtoFlux": "Opens the Resonite Wiki article about this ProtoFlux node.",
+    "WikiIntegration.WikiHyperlink.ComponentCategory": "Opens the Resonite Wiki article about this Category of Components.",
+    "WikiIntegration.WikiHyperlink.ProtoFluxCategory": "Opens the Resonite Wiki article about this Category of ProtoFlux nodes.",
 
     "WikiIntegration.OpenWikiArticleButton.Name": "Open Wiki Article Button",
     "WikiIntegration.OpenWikiArticleButton.Description": "Adds the Resonite Wiki button to Components in Worker Inspectors, and ProtoFlux nodes.",
+
+    "WikiIntegration.CategoryWikiArticleButtons.Name": "Open Wiki Article Button for Categories",
+    "WikiIntegration.CategoryWikiArticleButtons.Description": "Adds the Resonite Wiki button to Categories in Component Selectors and ProtoFlux Node Browsers.",
 
     "WikiIntegration.Config.ProtoFluxCategories.Name": "ProtoFlux Categories",
     "WikiIntegration.ProtoFluxCategoryToggles.Description": "Whether to show the Resonite Wiki button on ProtoFlux nodes in the category {0}."
