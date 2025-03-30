@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ComponentSelectorAdditions" Version="0.8.0-beta" />
+    <PackageReference Include="ComponentSelectorAdditions" Version="0.8.0-beta" PrivateAssets="all" />
     <PackageReference Include="MicroUtils.HarmonyAnalyzers" Version="1.4.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -54,8 +54,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="$(MainProjectPath)WikiIntegration.csproj">
-      <PrivateAssets>all</PrivateAssets>
-    </ProjectReference>
+    <ProjectReference Include="$(MainProjectPath)WikiIntegration.csproj" PrivateAssets="all" />
   </ItemGroup>
 </Project>
