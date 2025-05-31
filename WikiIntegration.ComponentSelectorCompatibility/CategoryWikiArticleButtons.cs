@@ -7,6 +7,7 @@ using System;
 using MonkeyLoader.Resonite.UI;
 using MonkeyLoader.Resonite.Configuration;
 using ComponentSelectorAdditions;
+using System.Collections.Generic;
 
 namespace WikiIntegration
 {
@@ -16,6 +17,8 @@ namespace WikiIntegration
 
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ComponentCategory"));
         private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFluxCategory"));
+
+        public override IEnumerable<string> Authors { get; } = ["Banane9"];
 
         public override int Priority => HarmonyLib.Priority.Normal;
 
@@ -36,6 +39,8 @@ namespace WikiIntegration
                 var path = button.Slot.GetComponent<ButtonRelay<string>>().Argument.Value;
 
                 // more generalized check instead of: path.EndsWith("Favorites") || path.EndsWith("Recents"))
+                // presuming that all non-user excluded categories are ones added by mods
+                // which won't have a wiki article to link to anyways
                 if (SearchConfig.Instance.HasExcludedCategory(path, out var isUserCategory) && !isUserCategory.Value)
                     continue;
 

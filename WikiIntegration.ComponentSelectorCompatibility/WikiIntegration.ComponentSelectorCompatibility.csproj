@@ -11,8 +11,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>WikiIntegration</PackageId>
     <Title>Wiki Integration</Title>
-    <Authors>Banane9</Authors>
-    <Version>0.5.0-beta</Version>
+    <Authors>Banane9; E1int</Authors>
+    <Version>0.6.0-beta</Version>
     <Description>This MonkeyLoader mod for Resonite that adds links to the Wiki to Components in Worker Inspectors, and ProtoFlux nodes.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
