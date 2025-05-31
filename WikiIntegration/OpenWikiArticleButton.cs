@@ -3,7 +3,6 @@ using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.UIX;
 using HarmonyLib;
-using MonkeyLoader.Components;
 using MonkeyLoader.Configuration;
 using MonkeyLoader.Events;
 using MonkeyLoader.Resonite;
@@ -30,18 +29,20 @@ namespace WikiIntegration
         IAsyncEventHandler<FallbackLocaleGenerationEvent>
     {
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.Component"));
-        private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
-        private static ProtoFluxCategoryConfig _categoryConfig = null!;
+
         private static readonly Dictionary<string, string> _nameOverrides = new() {
             {"dT", "Delta_Time"},
             {"ObjectCast", "Object_Cast"},
             {"ValueCast", "Value_Cast"}
         };
 
+        private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
+
+        private static ProtoFluxCategoryConfig _categoryConfig = null!;
+
         public override int Priority => HarmonyLib.Priority.HigherThanNormal;
 
         private static LocaleString ComponentLocale => _componentLocale.Value;
-
         private static LocaleString ProtoFluxLocale => _protoFluxLocale.Value;
 
         public Task Handle(FallbackLocaleGenerationEvent eventData)
@@ -110,8 +111,8 @@ namespace WikiIntegration
                     nodeName = dotIndex > 0 ? overload[(dotIndex + 1)..] : nodeName;
                 }
 
-                if (_nameOverrides.TryGetValue(nodeName, out var name))
-                    nodeName = name; 
+                if (_nameOverrides.TryGetValue(nodeName, out var overrideName))
+                    nodeName = overrideName;
 
                 wikiPage = $"ProtoFlux:{nodeName.Replace(' ', '_')}";
             }
