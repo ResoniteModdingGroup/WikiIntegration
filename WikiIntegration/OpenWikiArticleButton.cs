@@ -32,6 +32,12 @@ namespace WikiIntegration
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.Component"));
         private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
         private static ProtoFluxCategoryConfig _categoryConfig = null!;
+        private static readonly Dictionary<string, string> _nameOverrides = new() {
+            {"dT", "Delta_Time"},
+            {"ObjectCast", "Object_Cast"},
+            {"ValueCast", "Value_Cast"}
+        };
+
         public override int Priority => HarmonyLib.Priority.HigherThanNormal;
 
         private static LocaleString ComponentLocale => _componentLocale.Value;
@@ -103,6 +109,9 @@ namespace WikiIntegration
 
                     nodeName = dotIndex > 0 ? overload[(dotIndex + 1)..] : nodeName;
                 }
+
+                if (_nameOverrides.TryGetValue(nodeName, out var name))
+                    nodeName = name; 
 
                 wikiPage = $"ProtoFlux:{nodeName.Replace(' ', '_')}";
             }
