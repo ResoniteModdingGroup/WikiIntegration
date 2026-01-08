@@ -1,29 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Remora.Resonite.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyTitle>WikiIntegration</AssemblyTitle>
-    <AssemblyFileName>$(AssemblyTitle).dll</AssemblyFileName>
-    <RootNamespace>WikiIntegration</RootNamespace>
     <PackageId>WikiIntegration.Main</PackageId>
+    <ResoniteInstallOnBuild>false</ResoniteInstallOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
-    <None Include="..\README.md" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
     <None Include="Locale\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MicroUtils.HarmonyAnalyzers" Version="1.4.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="MonkeyLoader.GamePacks.Resonite" Version="0.22.1-beta" />
-    <PackageReference Include="PolySharp" Version="1.15.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Resonite.Elements.Core" Version="1.4.3" />
-    <PackageReference Include="Resonite.FrooxEngine" Version="2025.3.21.23" />
-    <PackageReference Include="Resonite.ProtoFlux.Core" Version="1.2.0" />
+    <ResoniteReference Include="Elements.Core" />
+    <ResoniteReference Include="FrooxEngine" />
+    <ResoniteReference Include="ProtoFlux.Core" />
   </ItemGroup>
 </Project>

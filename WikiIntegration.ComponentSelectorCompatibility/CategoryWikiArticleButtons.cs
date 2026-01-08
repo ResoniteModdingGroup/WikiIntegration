@@ -3,7 +3,6 @@ using Elements.Core;
 using FrooxEngine.UIX;
 using FrooxEngine;
 using MonkeyLoader.Resonite;
-using System;
 using MonkeyLoader.Resonite.UI;
 using MonkeyLoader.Resonite.Configuration;
 using ComponentSelectorAdditions;
