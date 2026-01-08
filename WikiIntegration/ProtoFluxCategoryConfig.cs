@@ -2,12 +2,7 @@
 using MonkeyLoader.Components;
 using MonkeyLoader.Configuration;
 using MonkeyLoader.Resonite.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace WikiIntegration
 {
@@ -15,7 +10,7 @@ namespace WikiIntegration
     {
         internal const string ProtoFluxPath = "ProtoFlux/Runtimes/Execution/Nodes";
 
-        private static readonly Dictionary<string, ConfigKeySessionShare<bool>> _sessionSharesByCategory = new();
+        private static readonly Dictionary<string, ConfigKeySessionShare<bool>> _sessionSharesByCategory = [];
 
         /// <inheritdoc/>
         public override string Description => "Contains settings for the Resonite Wiki buttons on specific categories of ProtoFlux nodes.";

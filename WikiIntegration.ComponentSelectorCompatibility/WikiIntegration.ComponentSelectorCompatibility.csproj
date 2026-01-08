@@ -1,14 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Remora.Resonite.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyTitle>WikiIntegration.ComponentSelectorCompatibility</AssemblyTitle>
-    <AssemblyFileName>$(AssemblyTitle).dll</AssemblyFileName>
     <RootNamespace>WikiIntegration</RootNamespace>
-    <MainProjectPath>..\WikiIntegration\</MainProjectPath>
+    <MainProjectPath>../WikiIntegration/</MainProjectPath>
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>WikiIntegration</PackageId>
     <Title>Wiki Integration</Title>
     <Authors>Banane9; E1int</Authors>
@@ -17,40 +13,28 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ResoniteModdingGroup/WikiIntegration</PackageProjectUrl>
+    <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
     <PackageTags>mod; mods; monkeyloader; resonite; component; components; inspector; protoflux; node; nodes; wiki; help; link</PackageTags>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddMainProjectToPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <Target Name="AddMainProjectToPackage">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="$(MainProjectPath)bin\$(Configuration)\$(TargetFramework)\WikiIntegration*" PackagePath="lib/$(TargetFramework)/" Exclude="$(MainProjectPath)bin\$(Configuration)\$(TargetFramework)\*.json" />
+      <TfmSpecificPackageFile Include="$(MainProjectPath)bin/$(Configuration)/mod/client/WikiIntegration*" PackagePath="lib/$(TargetFramework)/" Exclude="$(MainProjectPath)bin/$(Configuration)/$(TargetFramework)/*.json" />
     </ItemGroup>
   </Target>
-  
-  <Target Name="CopyPackage" AfterTargets="Pack">
-    <Copy Condition="'$(CopyToLibraries)'=='true'" SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFiles="$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg" />
-    <Message Condition="'$(CopyToLibraries)'=='true'" Text="Copied '$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg' to '$(ResonitePath)\MonkeyLoader\Mods\$(PackageId).nupkg'" Importance="high" />
-  </Target>
-  
+    
   <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="" />
-    <None Include="$(MainProjectPath)Locale\*" Pack="true" PackagePath="content/Locale/" LinkBase="Locale" />
+    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="$(MainProjectPath)Locale/*" Pack="true" PackagePath="content/Locale/" LinkBase="Locale" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ComponentSelectorAdditions" Version="0.8.0-beta" PrivateAssets="all" />
-    <PackageReference Include="MicroUtils.HarmonyAnalyzers" Version="1.4.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="MonkeyLoader.GamePacks.Resonite" Version="0.22.1-beta" />
-    <PackageReference Include="PolySharp" Version="1.15.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Resonite.Elements.Core" Version="1.4.3" />
-    <PackageReference Include="Resonite.FrooxEngine" Version="2025.3.21.23" />
-    <PackageReference Include="Resonite.ProtoFlux.Core" Version="1.2.0" />
+    <PackageReference Include="ComponentSelectorAdditions" Version="0.9.0-beta" PrivateAssets="all" />
+    
+    <ResoniteReference Include="Elements.Core" />
+    <ResoniteReference Include="FrooxEngine" />
+    <ResoniteReference Include="ProtoFlux.Core" />
   </ItemGroup>
   
   <ItemGroup>

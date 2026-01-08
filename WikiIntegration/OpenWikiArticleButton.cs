@@ -11,12 +11,6 @@ using MonkeyLoader.Resonite.Locale;
 using MonkeyLoader.Resonite.UI;
 using MonkeyLoader.Resonite.UI.Inspectors;
 using ProtoFlux.Core;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WikiIntegration
 {
@@ -69,7 +63,7 @@ namespace WikiIntegration
             AddHyperlink(button.Slot, eventData.Worker);
 
             ConfigSection.Components.DriveFromVariable(button.Slot.ActiveSelf_Field);
-            ConfigSection.ComponentOffset.DriveFromVariable(button.Slot._orderOffset);
+            ConfigSection.ComponentOffset.DriveFromVariable(button.Slot.OrderOffset_Field);
 
             ui.PopStyle();
         }
@@ -130,6 +124,23 @@ namespace WikiIntegration
             hyperlink.Reason.AssignLocaleString(reason);
         }
 
+        private static void CreateConfigKeyNames(FallbackLocaleGenerationEvent eventData, string descriptionFormat, CategoryNode<Type> category, string path)
+        {
+            if (category.Elements.Any())
+            {
+                var trimmedPath = path.Replace(ProtoFluxCategoryConfig.ProtoFluxPath, "");
+
+                var id = $"{_categoryConfig.FullId}.{ProtoFluxCategoryConfig.GetToggleId(path)}";
+                var description = string.Format(descriptionFormat, trimmedPath);
+
+                eventData.AddMessage($"{id}.Name", trimmedPath);
+                eventData.AddMessage($"{id}.Description", description);
+            }
+
+            foreach (var subcategory in category.Subcategories)
+                CreateConfigKeyNames(eventData, descriptionFormat, subcategory, $"{path}/{subcategory.Name}");
+        }
+
         private static void Postfix(ProtoFluxNodeVisual __instance, ProtoFluxNode node)
         {
             if (!Engine.IsAprilFools && node.SupressHeaderAndFooter && node.NodeName.Contains("Relay", StringComparison.OrdinalIgnoreCase))
@@ -154,23 +165,6 @@ namespace WikiIntegration
 
             if (_categoryConfig[node.GetType()] is ConfigKeySessionShare<bool> categoryShare)
                 categoryShare.DriveFromVariable(button.Slot.ActiveSelf_Field);
-        }
-
-        private void CreateConfigKeyNames(FallbackLocaleGenerationEvent eventData, string descriptionFormat, CategoryNode<Type> category, string path)
-        {
-            if (category.Elements.Any())
-            {
-                var trimmedPath = path.Replace(ProtoFluxCategoryConfig.ProtoFluxPath, "");
-
-                var id = $"{_categoryConfig.FullId}.{ProtoFluxCategoryConfig.GetToggleId(path)}";
-                var description = string.Format(descriptionFormat, trimmedPath);
-
-                eventData.AddMessage($"{id}.Name", trimmedPath);
-                eventData.AddMessage($"{id}.Description", description);
-            }
-
-            foreach (var subcategory in category.Subcategories)
-                CreateConfigKeyNames(eventData, descriptionFormat, subcategory, $"{path}/{subcategory.Name}");
         }
     }
 }
