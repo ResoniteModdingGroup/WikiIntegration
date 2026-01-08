@@ -123,4 +123,4 @@ jobs:
     # If some rules are not applicable, you can disable them
     # using the --excluded-rules or --excluded-rule-ids option
     - name: Validate Package(s)
-      run: meziantou.validate-nuget-package (Get-ChildItem -Recurse "${{ env.NuGetDirectory }}" -Include *.nupkg) --excluded-rules IconMustBeSet 
+      run: meziantou.validate-nuget-package "${{ env.NuGetDirectory }}/WikiIntegration.nupkg --excluded-rules IconMustBeSet 

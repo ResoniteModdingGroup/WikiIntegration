@@ -49,7 +49,7 @@ jobs:
         uses: mikepenz/action-gh-release@v1 #softprops/action-gh-release
         with:
           body: ${{steps.build_changelog.outputs.changelog}}
-          files: ${{ env.NuGetDirectory }}/*.nupkg
+          files: ${{ env.NuGetDirectory }}/WikiIntegration.nupkg
           fail_on_unmatched_files: true
           fail_on_asset_upload_issue: true
           prerelease: ${{ contains(github.ref, '-') }} # simple check for vX.Y.Z-something
@@ -75,7 +75,4 @@ jobs:
       # Use --skip-duplicate to prevent errors if a package with the same version already exists.
       # If you retry a failed workflow, already published packages will be skipped without error.
       - name: Publish NuGet Packages
-        run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.GITHUB_TOKEN }}" --source https://nuget.pkg.github.com/ResoniteModdingGroup/index.json --skip-duplicate
-          }
+        run: dotnet nuget push "${{ env.NuGetDirectory }}/WikiIntegration.nupkg" --api-key "${{ secrets.GITHUB_TOKEN }}" --source https://nuget.pkg.github.com/ResoniteModdingGroup/index.json --skip-duplicate
