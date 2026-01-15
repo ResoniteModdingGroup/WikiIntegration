@@ -24,10 +24,10 @@ namespace WikiIntegration
     {
         private static readonly Lazy<LocaleString> _componentLocale = new(() => Mod.GetLocaleString("WikiHyperlink.Component"));
 
-        private static readonly Dictionary<string, string> _nameOverrides = new() {
-            {"dT", "Delta_Time"},
-            {"ObjectCast", "Object_Cast"},
-            {"ValueCast", "Value_Cast"}
+        private static readonly Dictionary<string, string> _nameOverrides = new()
+        {
+            { "Engine.DynamicVariables.Input", "DynamicVariableInput" },
+            { "Engine.DynamicVariables.InputWithEvents", "DynamicVariableInputWithEvents" },
         };
 
         private static readonly Lazy<LocaleString> _protoFluxLocale = new(() => Mod.GetLocaleString("WikiHyperlink.ProtoFlux"));
@@ -52,15 +52,16 @@ namespace WikiIntegration
         protected override void Handle(BuildInspectorHeaderEvent eventData)
         {
             var ui = eventData.UI;
+            var worker = PreprocessWorker(eventData.Worker);
 
             ui.PushStyle();
             ui.Style.FlexibleWidth = 0;
             ui.Style.MinWidth = 40;
 
             var button = ui.Button(OfficialAssets.Graphics.Badges.Mentor)
-                .WithTooltip(eventData.Worker is ProtoFluxNode ? ProtoFluxLocale : ComponentLocale);
+                .WithTooltip(worker is ProtoFluxNode ? ProtoFluxLocale : ComponentLocale);
 
-            AddHyperlink(button.Slot, eventData.Worker);
+            AddHyperlink(button.Slot, worker);
 
             ConfigSection.Components.DriveFromVariable(button.Slot.ActiveSelf_Field);
             ConfigSection.ComponentOffset.DriveFromVariable(button.Slot.OrderOffset_Field);
@@ -86,37 +87,40 @@ namespace WikiIntegration
             return base.OnShutdown(applicationExiting);
         }
 
-        private static void AddHyperlink(Slot slot, Worker worker)
+        private static void AddHyperlink(Slot slot, IWorker worker)
         {
             string wikiPage;
             LocaleString reason;
 
             if (worker is ProtoFluxNode node)
             {
-                reason = ProtoFluxLocale;
                 var nodeName = node.NodeName;
+                var overload = NodeMetadataHelper.GetMetadata(node.NodeType).Overload;
 
-                var nodeMetadata = NodeMetadataHelper.GetMetadata(node.NodeType);
-                if (!string.IsNullOrEmpty(nodeMetadata.Overload))
+                if (!string.IsNullOrEmpty(overload))
                 {
-                    var overload = nodeMetadata.Overload;
-                    var dotIndex = overload.LastIndexOf('.');
+                    if (_nameOverrides.TryGetValue(overload, out var overrideName))
+                    {
+                        nodeName = overrideName;
+                    }
+                    else
+                    {
+                        var dotIndex = overload.LastIndexOf('.');
 
-                    nodeName = dotIndex > 0 ? overload[(dotIndex + 1)..] : nodeName;
+                        nodeName = dotIndex > 0 ? overload[(dotIndex + 1)..] : nodeName;
+                    }
                 }
 
-                if (_nameOverrides.TryGetValue(nodeName, out var overrideName))
-                    nodeName = overrideName;
-
                 wikiPage = $"ProtoFlux:{nodeName.Replace(' ', '_')}";
+                reason = ProtoFluxLocale;
             }
             else
             {
-                reason = ComponentLocale;
                 var workerName = worker.WorkerType.Name;
 
                 // Don't need to remove the `1 on generics - they redirect and may actually be different
                 wikiPage = $"Component:{workerName}";
+                reason = ComponentLocale;
             }
 
             var hyperlink = slot.AttachComponent<Hyperlink>();
@@ -165,6 +169,14 @@ namespace WikiIntegration
 
             if (_categoryConfig[node.GetType()] is ConfigKeySessionShare<bool> categoryShare)
                 categoryShare.DriveFromVariable(button.Slot.ActiveSelf_Field);
+        }
+
+        private static IWorker PreprocessWorker(IWorker originalWorker)
+        {
+            if (originalWorker is ProtoFluxEngineProxy proxy)
+                return proxy.Node.Target ?? originalWorker;
+
+            return originalWorker;
         }
     }
 }
