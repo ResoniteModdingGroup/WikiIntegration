@@ -38,6 +38,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="$(MainProjectPath)WikiIntegration.csproj" PrivateAssets="all" />
+    <ProjectReference Include="$(MainProjectPath)WikiIntegration.csproj" PrivateAssets="all" Private="false" />
   </ItemGroup>
 </Project>
