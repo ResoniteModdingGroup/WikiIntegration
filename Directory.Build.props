@@ -1,10 +1,6 @@
 <Project>
   <PropertyGroup>
     <ResoniteInstallOnBuild Condition="'$(ResoniteInstallOnBuild)'==''">true</ResoniteInstallOnBuild>
-
-    <RestoreAdditionalProjectSources>
-      https://nuget.pkg.github.com/ResoniteModdingGroup/index.json
-    </RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <PropertyGroup>

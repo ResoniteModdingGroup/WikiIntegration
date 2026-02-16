@@ -98,9 +98,6 @@ jobs:
         dotnet-version: 10.x
         source-url: https://nuget.pkg.github.com/ResoniteModdingGroup/index.json
 
-    - name: Add MonkeyLoader NuGet Source
-      run: dotnet nuget add source https://pkg.munally.com/MonkeyModdingTroop/index.json
-
     - name: Restore NuGet Package Cache
       uses: actions/cache/restore@v4
       with:
