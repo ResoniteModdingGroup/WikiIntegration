@@ -63,6 +63,9 @@ jobs:
     
     - name: Test
       run: dotnet test --no-restore --no-build
+
+    - name: Move NuGet Packages
+      run: mv (Get-ChildItem -Recurse ./ -Include WikiIntegration.nupkg) ./
       
     # Publish the NuGet package(s) as an artifact, so they can be used in the following jobs
     - name: Upload NuGet Packages Artifact
@@ -71,7 +74,7 @@ jobs:
         name: NuGet Packages
         if-no-files-found: error
         retention-days: 7
-        path: ./**/WikiIntegration.nupkg
+        path: ./WikiIntegration.nupkg
     
     # Only when it's not from a PR to avoid any funny packages in the cache
     - name: Save NuGet Package Cache
